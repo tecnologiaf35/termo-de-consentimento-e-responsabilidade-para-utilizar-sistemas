@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Termo de Consentimento, Responsabilidade e Privacidade — HMTJ</title>
+<meta name="viewport" content="width=840">
+<style>
+  :root {
+    --ink: #000000;
+    --gray: #444444;
+    --margin-x: 14mm;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #d9d9d9; font-family: Arial, Helvetica, sans-serif; color: var(--ink); }
+
+  .form-container { display: block; margin: 0 auto; width: 210mm; padding-bottom: 90px; }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff;
+    margin: 30px auto;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    padding: 6mm var(--margin-x) 4mm;
+    overflow: hidden;
+  }
+
+  /* ===== Cabeçalho institucional ===== */
+  .doc-header {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--ink);
+    margin-bottom: 3mm;
+    flex-shrink: 0;
+  }
+  .doc-header td {
+    border: 1px solid var(--ink);
+    padding: 1.6mm 2.5mm;
+    vertical-align: middle;
+    background: #fff;
+  }
+  .h-name { font-weight: bold; text-align: center; font-size: 10pt; }
+  .h-sub { text-align: center; font-weight: bold; font-size: 10pt; }
+  .h-title { text-align: left; font-size: 10pt; }
+  .h-title strong { font-weight: bold; }
+  .logo-cell { width: 30mm; text-align: center; }
+  .logo-cell img { max-width: 26mm; max-height: 20mm; object-fit: contain; }
+
+  /* ===== Rodapé institucional ===== */
+  .doc-footer {
+    position: absolute;
+    left: var(--margin-x);
+    right: var(--margin-x);
+    bottom: 4mm;
+    width: calc(100% - (2 * var(--margin-x)));
+    border-collapse: collapse;
+    border: 1px solid var(--ink);
+    margin: 0;
+    z-index: 2;
+    background: #fff;
+  }
+  .doc-footer td {
+    border: 1px solid var(--ink);
+    padding: 2mm 3mm;
+    font-size: 10pt;
+    font-style: normal;
+    color: var(--ink);
+  }
+  .footer-page { text-align: center; font-style: normal; width: 32mm; white-space: nowrap; }
+
+  /* ===== Conteúdo ===== */
+  .content {
+    flex: 1;
+    min-height: 0;
+    padding-bottom: 14mm;
+    font-size: 10pt;
+  }
+
+  .instrucoes { margin-bottom: 1.5mm; }
+  .instrucoes p { font-weight: bold; margin: 0 0 1mm; }
+  .instrucoes ul { margin: 0; padding-left: 5mm; }
+  .instrucoes li { margin-bottom: 0.2mm; }
+
+  h3.tbl-title { font-size: 10pt; font-weight: bold; margin: 1.5mm 0 0.6mm; }
+
+  table.data-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.5mm;
+    font-size: 10pt;
+  }
+  table.data-tbl td {
+    border: 1px solid var(--ink);
+    padding: 0.5mm 2mm;
+    vertical-align: middle;
+  }
+  table.data-tbl tr { break-inside: avoid; page-break-inside: avoid; }
+  .conditional-row { display: none; }
+  .conditional-row.is-visible { display: table-row; }
+  .page-continuation { display: block; width: 100%; }
+  .page-continuation:empty { display: none; }
+  table.data-tbl td.lbl { font-style: italic; width: 40mm; }
+  table.data-tbl td.val { width: auto; }
+
+  .registration-pair-row { break-inside: avoid; page-break-inside: avoid; }
+  .registration-pair-cell { width: 50%; vertical-align: top !important; padding: 1mm 2mm !important; }
+  .registration-pair-cell + .registration-pair-cell { border-left: 2px solid var(--ink) !important; }
+  .registration-field { display: grid; grid-template-columns: auto minmax(24mm, 1fr); align-items: center; gap: 1mm 2mm; }
+  .registration-label { font-size: 9.5pt; font-weight: bold; white-space: nowrap; }
+  .registration-field .cell-input { min-width: 0; }
+  .contrato-opcoes { flex-wrap: nowrap; gap: 1mm 2mm; }
+  .contrato-chapa { display: none; align-self: stretch; align-items: center; gap: 1mm; white-space: nowrap; }
+  .contrato-chapa.is-visible { display: inline-flex; }
+  .contrato-chapa::before { content: ""; align-self: stretch; border-left: 1px solid var(--ink); margin: 0 2mm 0 1mm; }
+  .contrato-chapa .cell-input { width: 24mm; }
+  @keyframes pulse-chapa-required {
+    0%, 100% { background-color: transparent; border-bottom-color: #e74c3c; }
+    50% { background-color: rgba(231, 76, 60, 0.35); border-bottom-color: #e74c3c; }
+  }
+  .contrato-chapa .cell-input.chapa-pulse { border-bottom: 2px solid #e74c3c; animation: pulse-chapa-required 0.7s ease-in-out infinite; }
+  .contrato-outro-item { flex: 0 0 auto; }
+  .contrato-outro-input { width: 34mm; }
+  .registro-opcoes { flex-wrap: nowrap; gap: 0.5mm; }
+  .registro-outro-item { flex: 0 0 auto; }
+  .registro-outro-input { width: 8mm; }
+  .registro-numero { display: none; align-self: stretch; align-items: center; gap: 0.5mm; white-space: nowrap; }
+  .registro-numero.is-visible { display: inline-flex; }
+  .registro-numero::before { content: ""; align-self: stretch; border-left: 1px solid var(--ink); margin: 0 0.5mm; }
+  .registro-numero .cell-input { width: 18mm; }
+  .sistemas-outro-item { flex: 1 1 auto; min-width: 0; }
+  .sistemas-outro-input { flex: 1 1 auto; min-width: 0; width: auto; }
+  .registro-numero .cell-input.registro-pulse { border-bottom: 2px solid #e74c3c; animation: pulse-chapa-required 0.7s ease-in-out infinite; }
+  .usuario-modelo-field { display: flex; align-items: center; gap: 3mm; }
+  .usuario-modelo-field .cell-input { flex: 1; min-width: 0; }
+  .usuario-modelo-nao-possui { display: inline-flex; align-items: center; gap: 1mm; white-space: nowrap; }
+  .usuario-modelo-nao-possui input { width: 3mm; height: 3mm; accent-color: var(--ink); }
+  .usuario-modelo-conditional { display: none; }
+  .usuario-modelo-conditional.is-visible { display: table-row; }
+  .usuario-modelo-examples { display: none; }
+  .usuario-modelo-examples.is-visible { display: block; }
+  .usuario-modelo-info { font-size: 9pt; margin: 0.8mm 0 0.6mm; line-height: 1.15; }
+  .usuario-modelo-responsavel { font-size: 8.5pt; color: #555; margin-top: 0.5mm; }
+
+  .cell-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: var(--ink);
+    padding: 0.3mm 0;
+  }
+  textarea.cell-input { resize: vertical; min-height: 7mm; line-height: 1.3; font-family: Arial, Helvetica, sans-serif; overflow-y: hidden; }
+  #permissoes_sistema { display: block; width: 100%; min-height: 20mm; box-sizing: border-box; }
+
+  .chk-row { display: flex; flex-wrap: wrap; gap: 1mm 2mm; align-items: center; }
+  .chk-item { display: inline-flex; align-items: center; gap: 0.6mm; white-space: nowrap; }
+  .chk-item input[type="checkbox"], .chk-item input[type="radio"] { width: 2.6mm; height: 2.6mm; accent-color: var(--ink); cursor: pointer; }
+  .chk-item label { font-size: 10pt; cursor: pointer; }
+  .outro-inline { border: none; border-bottom: 1px solid var(--ink); outline: none; background: transparent; font-family: Arial, Helvetica, sans-serif; font-size: 10pt; width: 20mm; padding: 0 1mm; }
+
+  .ex-note { font-size: 10pt; margin: 0.6mm 0 1mm; line-height: 1.15; }
+  .mv-cert-alert { display: none; color: #8b1e1e; font-size: 9pt; line-height: 1.2; font-weight: bold; }
+  .mv-cert-alert.is-visible { display: table-row; }
+  .ex-note u { text-decoration: underline; }
+
+  h4.pol-title { font-size: 10pt; font-weight: bold; margin: 1.5mm 0 1mm; }
+  ol.pol-list { margin: 0; padding-left: 5mm; font-size: 10pt; line-height: 1.18; }
+  ol.pol-list > li { margin-bottom: 0.6mm; text-align: left; }
+  ol.pol-list ul { margin: 0.4mm 0 0.4mm; padding-left: 5mm; list-style: disc; }
+  ol.pol-list ul li { margin-bottom: 0.2mm; }
+  .cont-tag { font-size: 10pt; font-style: italic; color: var(--gray); }
+
+  .declaracao { font-size: 10pt; margin: 1.5mm 0 1.5mm; }
+
+  .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    margin: 0 0 2.5mm;
+    cursor: pointer;
+    padding: 0.5mm 0;
+  }
+  .checkbox-wrapper input[type="checkbox"] { width: 4mm; height: 4mm; cursor: pointer; accent-color: var(--ink); }
+  .checkbox-wrapper span { font-size: 10pt; font-weight: normal; }
+
+  @keyframes pulse-red {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(231, 76, 60, 0.3); }
+    100% { background-color: transparent; }
+  }
+  .flash-error { animation: pulse-red 0.5s ease-in-out 3; border: 2px solid #e74c3c; }
+  .field-missing { border: 2px solid #e74c3c !important; background-color: #fff0f0 !important; }
+  .field-missing-row td { border-color: #e74c3c !important; background-color: #fff0f0 !important; }
+
+  /* ===== Blocos de assinatura (nome na linha, assinatura sobreposta em cima) ===== */
+  .sign-block { margin-bottom: 2.5mm; text-align: center; }
+  .sign-line-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 4mm;
+  }
+  .sign-pad-area {
+    position: relative;
+    flex: 1;
+    height: 20mm;
+    cursor: pointer;
+    overflow: visible;
+  }
+  .sign-pad-area .sig-img {
+    position: absolute;
+    left: 50%;
+    bottom: 5.5mm;
+    transform: translateX(-50%);
+    max-height: 15mm;
+    max-width: 95%;
+    object-fit: contain;
+    pointer-events: none;
+    display: none;
+  }
+  .sign-pad-placeholder {
+    position: absolute;
+    left: 50%;
+    bottom: 6.5mm;
+    transform: translateX(-50%);
+    font-size: 10pt;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 1.5mm;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .sign-pad-placeholder svg { width: 3.5mm; height: 3.5mm; }
+  .sign-name-input {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--ink);
+    background: transparent;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    color: var(--ink);
+    padding: 0 1mm 1mm;
+    outline: none;
+    cursor: text;
+  }
+  .sign-cpf { display: flex; align-items: baseline; gap: 1.5mm; font-size: 10pt; white-space: nowrap; padding-bottom: 0; }
+  .sign-cpf input {
+    border: none; border-bottom: 1px solid var(--ink);
+    background: transparent; font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt; padding: 0.5mm 0.5mm 1mm; outline: none; color: var(--ink);
+    width: 34mm;
+  }
+  .sign-caption { display: block; width: 100%; text-align: center; font-size: 10pt; font-weight: bold; margin-top: 1.5mm; }
+
+  /* ===== Toolbar ===== */
+  .toolbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #1a1a1ae6;
+    backdrop-filter: blur(8px);
+    padding: 15px 30px;
+    display: flex; justify-content: center; align-items: center; gap: 20px;
+    z-index: 9999;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+  }
+  .toolbar button {
+    background: #ffffff; color: #111; border: none; padding: 12px 28px; border-radius: 25px;
+    font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
+    transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .toolbar button:hover { background: #e5e5e5; transform: translateY(-1px); }
+  .toolbar span { color: #ffffff; font-size: 13px; font-weight: 400; font-family: Arial, Helvetica, sans-serif; }
+
+  /* ===== Modais ===== */
+  .custom-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .custom-modal-content {
+    background: #ffffff;
+    width: 100%;
+    max-width: 540px;
+    border-radius: 12px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.96) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .custom-modal-header {
+    background: #f0f0f0;
+    color: #111;
+    padding: 16px 24px;
+    font-size: 12pt;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ddd;
+  }
+  .custom-modal-body { padding: 22px 24px; color: #222; font-size: 10.5pt; line-height: 1.6; }
+  .custom-modal-body p { margin: 0 0 12px 0; }
+  .custom-modal-body ul { margin: 12px 0 18px 0; padding-left: 20px; max-height: 200px; overflow-y: auto; color: #c0392b; font-weight: 500; }
+  .custom-modal-body li { margin-bottom: 6px; }
+  .custom-modal-footer {
+    padding: 16px 24px; display: flex; justify-content: flex-end; gap: 12px;
+    background: #f8f8f8; border-top: 1px solid #eee;
+  }
+  .modal-btn { padding: 10px 22px; border: none; border-radius: 20px; font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; font-weight: 700; cursor: pointer; transition: all 0.2s ease; }
+  .modal-btn-cancel { background: #e2e2e2; color: #333; }
+  .modal-btn-cancel:hover { background: #cfcfcf; }
+  .modal-btn-confirm { background: #111; color: #ffffff; }
+  .modal-btn-confirm:hover { background: #000; }
+
+  .signature-canvas-container {
+    position: relative; width: 100%; height: 180px; background: #fafafa;
+    border: 2px dashed #999; border-radius: 10px; margin: 10px 0; overflow: hidden;
+  }
+  .signature-canvas-container canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+
+  @media (max-height: 520px) and (orientation: landscape) {
+    #signature-modal .custom-modal-content { max-width: 95vw !important; height: 92vh !important; flex-direction: row !important; border-radius: 12px !important; }
+    #signature-modal .custom-modal-header { display: none !important; }
+    #signature-modal .custom-modal-body { flex: 1 !important; padding: 12px !important; display: flex !important; flex-direction: column !important; justify-content: center !important; }
+    #signature-modal .custom-modal-body p { margin-bottom: 5px !important; font-size: 9pt !important; }
+    #signature-modal .signature-canvas-container { height: calc(92vh - 50px) !important; margin: 0 !important; flex: 1 !important; }
+    #signature-modal .custom-modal-footer { width: 155px !important; flex-direction: column !important; justify-content: center !important; gap: 8px !important; padding: 12px !important; background: #f8f8f8 !important; border-left: 1px solid #ddd !important; border-top: none !important; }
+    #signature-modal .modal-btn { width: 100% !important; margin: 0 !important; padding: 10px !important; font-size: 9pt !important; text-align: center !important; }
+    #signature-modal #btn-sig-clear { margin-right: 0 !important; background: #f1f1f1 !important; }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+</head>
+<body>
+
+<div class="form-container" id="printable-form-content">
+
+  <!-- ============ PÁGINA 1 ============ -->
+  <div class="page" id="page-1">
+    <table class="doc-header">
+      <tr>
+        <td class="h-name" rowspan="1">HOSPITAL ESTADUAL DA MULHER</td>
+        <td class="logo-cell" rowspan="2"><img src="https://fluig.hmtj.org.br:8443/wdg_repositorio/resources/images/logos/35.jpg" alt="HMTJ" crossorigin="anonymous"></td>
+      </tr>
+      <tr><td class="h-sub">CSTI</td></tr>
+      <tr><td class="h-title" colspan="2"><strong>Título</strong>: Termo de consentimento, responsabilidade e privacidade para utilização dos sistemas</td></tr>
+    </table>
+
+    <div class="content">
+      <div class="instrucoes">
+        <p>Instruções:</p>
+        <ul>
+          <li>Este termo deverá ser preenchido e assinado pela coordenação direta do funcionário;</li>
+          <li>O funcionário deverá ler e assinar para ciência e concordância do mesmo;</li>
+          <li>Após o correto preenchimento do termo, o mesmo deverá ser anexado junto a solicitação fluig;</li>
+          <li>Somente com o correto preenchimento e ciência do funcionário o usuário será criado e o fluig respondido.</li>
+        </ul>
+      </div>
+
+      <h3 class="tbl-title">Dados do colaborador:</h3>
+      <table class="data-tbl">
+        <tr>
+          <td class="lbl">Nome completo:</td>
+          <td class="val"><input class="cell-input" type="text" id="nome_completo"></td>
+        </tr>
+        <tr>
+          <td class="lbl">Nome social <span style="font-style: normal; font-size: 8.5pt;">(opcional)</span>:</td>
+          <td class="val"><input class="cell-input" type="text" id="nome_social" aria-label="Nome social opcional"></td>
+        </tr>
+        <tr>
+          <td class="lbl">CPF:</td>
+          <td class="val"><input class="cell-input" type="text" id="cpf_colaborador" maxlength="14"></td>
+        </tr>
+        <tr>
+          <td class="lbl">Tipo de contrato:</td>
+          <td class="val">
+            <div class="chk-row contrato-opcoes">
+              <span class="chk-item"><input type="radio" name="tipo_contrato" value="CLT" id="contrato_clt"><label for="contrato_clt">CLT</label></span>
+              <span class="chk-item"><input type="radio" name="tipo_contrato" value="PJ" id="contrato_pj"><label for="contrato_pj">PJ</label></span>
+              <span class="chk-item"><input type="radio" name="tipo_contrato" value="ESTATUTÁRIO" id="contrato_estatutario"><label for="contrato_estatutario">ESTATUTÁRIO</label></span>
+              <span class="chk-item contrato-outro-item"><input type="radio" name="tipo_contrato" value="OUTRO" id="contrato_outro"><label for="contrato_outro">Outro:</label><input class="outro-inline contrato-outro-input" type="text" id="contrato_outro_txt" aria-label="Descreva outro tipo de contrato"></span>
+              <span class="contrato-chapa" id="contrato_chapa_inline"><label for="chapa_colaborador">Chapa:</label><input class="cell-input" type="text" id="chapa_colaborador"></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="lbl">Registro profissional:</td>
+          <td class="val">
+            <div class="chk-row registro-opcoes">
+              <span class="chk-item"><input type="radio" name="registro_profissional" value="CRM" id="registro_crm"><label for="registro_crm">CRM</label></span>
+              <span class="chk-item"><input type="radio" name="registro_profissional" value="COREN" id="registro_coren"><label for="registro_coren">COREN</label></span>
+              <span class="chk-item registro-outro-item"><input type="radio" name="registro_profissional" value="OUTRO" id="registro_outro"><label for="registro_outro">Outro:</label><input class="outro-inline registro-outro-input" type="text" id="registro_outro_txt" aria-label="Descreva outro conselho profissional"></span>
+              <span class="chk-item"><input type="radio" name="registro_profissional" value="NAO_POSSUI" id="registro_nao_possui"><label for="registro_nao_possui">Não possui</label></span>
+              <span class="registro-numero" id="registro_numero_inline"><label for="num_registro">N° Regist.</label><input class="cell-input" type="text" id="num_registro"></span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="lbl">Unidade:</td>
+          <td class="val"><input class="cell-input" type="text" id="unidade" value="35) HEMU - HOSPITAL ESTADUAL DA MULHER DR. JURANDIR DO NASCIMENTO"></td>
+        </tr>
+        <tr>
+          <td class="lbl">Setor:</td>
+          <td class="val"><input class="cell-input" type="text" id="setor"></td>
+        </tr>
+        <tr>
+          <td class="lbl">Cargo:</td>
+          <td class="val"><input class="cell-input" type="text" id="cargo"></td>
+        </tr>
+      </table>
+
+      <h3 class="tbl-title">Dados para criação de acesso:</h3>
+      <table class="data-tbl">
+        <tr>
+          <td class="lbl">Sistemas:</td>
+          <td class="val">
+            <div class="chk-row">
+              <span class="chk-item"><input type="checkbox" name="sistemas" value="COMPUTADOR-A.D." id="sis_ad"><label for="sis_ad">COMPUTADOR-A.D.</label></span>
+              <span class="chk-item"><input type="checkbox" name="sistemas" value="RM" id="sis_rm"><label for="sis_rm">RM</label></span>
+              <span class="chk-item"><input type="checkbox" name="sistemas" value="FLUIG" id="sis_fluig"><label for="sis_fluig">FLUIG</label></span>
+              <span class="chk-item"><input type="checkbox" name="sistemas" value="MV" id="sis_mv"><label for="sis_mv">MV</label></span>
+              <span class="chk-item sistemas-outro-item"><input type="checkbox" name="sistemas" value="OUTRO" id="sis_outro"><label for="sis_outro">OUTRO (S):</label><input type="text" class="outro-inline sistemas-outro-input" id="sis_outro_txt"></span>
+            </div>
+          </td>
+        </tr>
+        <tr class="conditional-row" id="row_mv_cns">
+          <td class="lbl">Cartão Nacional de Saúde:</td>
+          <td class="val"><input class="cell-input" type="text" id="mv_cns"></td>
+        </tr>
+        <tr class="conditional-row" id="row_mv_assina">
+          <td class="lbl">Já consegue assinar dentro do MV?</td>
+          <td class="val">
+            <div class="chk-row">
+              <span class="chk-item"><input type="radio" name="mv_assina" value="SIM" id="mv_assina_sim"><label for="mv_assina_sim">Sim</label></span>
+              <span class="chk-item"><input type="radio" name="mv_assina" value="NAO" id="mv_assina_nao"><label for="mv_assina_nao">Não</label></span>
+            </div>
+          </td>
+        </tr>
+        <tr class="conditional-row mv-cert-alert" id="row_mv_certificado">
+          <td colspan="2">Por ser PJ, a aprovação da emissão do certificado digital deve ser feita pela contratada. Procure o administrativo da empresa.</td>
+        </tr>
+        <tr class="conditional-row" id="row_mv_pj">
+          <td class="lbl">É pessoa jurídica (PJ)?</td>
+          <td class="val">
+            <div class="chk-row">
+              <span class="chk-item"><input type="radio" name="mv_pj" value="SIM" id="mv_pj_sim"><label for="mv_pj_sim">Sim</label></span>
+              <span class="chk-item"><input type="radio" name="mv_pj" value="NAO" id="mv_pj_nao"><label for="mv_pj_nao">Não</label></span>
+            </div>
+          </td>
+        </tr>
+        <tr class="conditional-row" id="row_mv_contato">
+          <td class="lbl">Telefone e e-mail:</td>
+          <td class="val">
+            <div class="chk-row">
+              <input class="cell-input" type="tel" id="mv_telefone" placeholder="Telefone">
+              <input class="cell-input" type="email" id="mv_email" placeholder="E-mail">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="lbl">Usuário modelo:</td>
+          <td class="val">
+            <div class="usuario-modelo-field">
+              <input class="cell-input" type="text" id="usuario_modelo">
+              <label class="usuario-modelo-nao-possui"><input type="checkbox" id="usuario_modelo_nao_possui"> Não possui</label>
+            </div>
+            <div class="usuario-modelo-responsavel">Preenchimento realizado pelo Solicitante Responsável.</div>
+          </td>
+        </tr>
+        <tr class="usuario-modelo-conditional" id="row_permissoes_sistema">
+          <td class="lbl">Caso não tenha usuário modelo descreva quais <b>Permissões e Pastas</b> devem ser liberadas:</td>
+          <td class="val"><textarea class="cell-input" id="permissoes_sistema" rows="3"></textarea></td>
+        </tr>
+      </table>
+      <div class="usuario-modelo-info">* Usuário modelo é um usuário que tenha os mesmos acessos que o usuário novo precisa ter.</div>
+      <div class="ex-note usuario-modelo-examples" id="usuario_modelo_examples">
+        Ex. permissões do sistema e pasta de trabalho: <u>"mv – consulta de prontuario, lançamento de atendimento"</u>, <u>"RM – Especificar o caminho e tipo de acesso que precise"</u><br>
+        <u>"pasta de rede - departamentos\HMI-FISCAL"</u>
+      </div>
+
+      <h4 class="pol-title">Políticas de privacidade, diretrizes e critérios para o uso seguro e consciente dos sistemas por parte do colaborador:</h4>
+      <ol class="pol-list" start="1">
+        <li>O usuário criado permite acesso aos sistemas e as estruturas da rede exclusivamente para fins de atendimentos de saúde, direta ou indiretamente, necessários para assegurar a tutela da saúde dos pacientes, e é de responsabilidade exclusiva do usuário a correta utilização desses recursos oferecidos.</li>
+        <li>O <b>CSTI</b> apenas disponibiliza o USUARIO do colaborador e, portanto, não assumirá qualquer responsabilidade institucional, civil ou criminal pelo mal uso, uso indevido, eventuais perdas e danos causados, direta ou indiretamente, pelo usuário, devido a informações equivocadas na solicitação dos recursos pela coordenação.</li>
+        <li>O usuário deverá zelar pelos equipamentos e sistemas que lhe são fornecidos em pleno funcionamento e em condições de uso, bem como deverá promover as medidas pessoais de segurança necessárias à proteção de seus dados, e dados de terceiros tais como:
+          <ul>
+            <li>Sempre realizar o logoff para saída dos sistemas;</li>
+            <li>Sempre manter os arquivos salvos no servidor nas pastas autorizadas;</li>
+            <li>Não disponibilizar sua senha e seus acessos a terceiros;</li>
+            <li>Não realizar a divulgação de dados indevidos e não autorizados;</li>
+            <li>Não utilizar equipamentos e software de terceiros sem autorização;</li>
+            <li>Não clicar em links e sites suspeitos ou fora da sua rotina;</li>
+            <li>Não utilizar dos recursos disponibilizados para fins pessoais;</li>
+          </ul>
+        </li>
+        <li>O usuário não poderá usar e acessar os sistemas com finalidades que:
+          <ul>
+            <li>Usem de práticas e condutas contrárias à moral e aos bons costumes;</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <table class="doc-footer">
+      <tr>
+        <td>Referência: PRS CSTI 002 - CRIAÇÃO DE ACESSOS PARA NOVOS COLABORADORES</td>
+        <td class="footer-page">Página 01 de 02</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ============ PÁGINA 2 ============ -->
+  <div class="page" id="page-2">
+    <table class="doc-header">
+      <tr>
+        <td class="h-name" rowspan="1">HOSPITAL ESTADUAL DA MULHER</td>
+        <td class="logo-cell" rowspan="2"><img src="https://fluig.hmtj.org.br:8443/wdg_repositorio/resources/images/logos/35.jpg" alt="HMTJ" crossorigin="anonymous"></td>
+      </tr>
+      <tr><td class="h-sub">CSTI</td></tr>
+      <tr><td class="h-title" colspan="2"><strong>Título</strong>: Termo de consentimento, responsabilidade e privacidade para utilização dos sistemas</td></tr>
+    </table>
+
+    <div class="content">
+      <div id="page2-continuation" class="page-continuation"></div>
+      <ol id="continuation-item-4" class="pol-list" style="list-style: none; padding-left: 5mm; margin-top: 0;">
+        <li style="margin-bottom: 2.2mm;">
+          <ul>
+            <li>Incidam em atos discriminatórios de qualquer razão;</li>
+            <li>Mostrem mensagens indevidas, produtos ou serviços ilícitos, inapropriados, difamatórios, violentos, obscenos e pornográficos;</li>
+            <li>Violem o sigilo das comunicações e informações prestadas ou adquiridas;</li>
+            <li>Incorporem vírus, outros elementos físicos ou eletrônicos que possam danificar ou impedir o normal funcionamento da rede, do sistema ou dos equipamentos de informática ou que possam danificar os documentos eletrônicos e arquivos armazenados nestes equipamentos informáticos.</li>
+          </ul>
+        </li>
+      </ol>
+      <ol class="pol-list" start="5">
+        <li>O <b>HMTJ</b> com base no Art. 7º da <b>LGPD</b> coleta, rastreia e monitora automaticamente os acessos, equipamentos e afins para fins legítimos de fazer funcionar, manter e proteger os recursos, terceiros e por obrigações legais, tais como:
+          <ul>
+            <li>Quanto aos prestadores de serviços para realização de manutenção técnica;</li>
+            <li>Responder a solicitações apropriadas de autoridades legítimas ou quando exigido por ordens judiciais ou regulamentos aplicáveis;</li>
+            <li>Quando necessário para a condução de auditorias corporativas ou para investigar ou responder a uma ameaça de segurança.</li>
+          </ul>
+        </li>
+        <li>O <b>HMTJ</b> deixa claro que de acordo com a lei <b>LGPD</b> e demais leis e procedimentos aplicáveis, não comercializa e não disponibiliza os dados pessoais dos usuários sem fins legítimos e garante os direitos dos usuários em relação ao seus dados no contexto do presente tratamento:
+          <ul>
+            <li>Direito de requerer o acesso de seus dados pessoais;</li>
+            <li>Direito de retificar ou corrigir quaisquer dados pessoais que estejam imprecisos ou incompletos;</li>
+            <li>Direito de requerer uma cópia de seus dados pessoais;</li>
+            <li>Direito de se opor ao tratamento dos seus dados, mesmo que isto implique na interrupção do recurso fornecido;</li>
+            <li>Direito de requerer a exclusão dos seus dados quando não forem mais necessários para a finalidade para os quais foram fornecidos, salvaguarda se nossas políticas internas ou leis nos obriguem a manter;</li>
+            <li>Direito de revogar este termo a qualquer momento, o que não afeta a legalidade do tratamento realizado com seu consentimento até tal momento.</li>
+          </ul>
+        </li>
+        <li>O <b>HMTJ</b> e seus prestadores adotam medidas para proteger os dados para acesso a este fim, tais como permissões de acesso somente a pessoas autorizadas, integridade das informações, disponibilidade dos serviços e confidencialidade dos dados informados. Não obstante, o <b>HMTJ</b> não tem como garantir a completa segurança dos dados dos usuários e afasta, na medida máxima permitida por lei, toda a responsabilidade sobre estas informações; Recomendamos que o usuário tome todas as precauções disponíveis para proteger seus dados e informações circuladas pelo próprio uso.</li>
+      </ol>
+
+      <div class="declaracao">Declaro que li e estou de acordo com os termos acima.</div>
+
+      <div class="sign-block">
+        <div class="sign-line-row">
+          <div class="sign-pad-area" id="pad_usuario" data-target="1">
+            <div class="sign-pad-placeholder" id="placeholder_1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 3h7v7"/></svg>
+              Toque para assinar e declarar ciência e concordância
+            </div>
+            <img class="sig-img" id="sig1-preview">
+            <input type="text" class="sign-name-input" id="nome_usuario_sign" placeholder="Nome completo">
+          </div>
+          <div class="sign-cpf">CPF: <input type="text" id="cpf_usuario_sign" maxlength="14"></div>
+        </div>
+        <div class="sign-caption">Usuário</div>
+      </div>
+
+      <div class="sign-block">
+        <div class="sign-line-row">
+          <div class="sign-pad-area" id="pad_solicitante" data-target="2">
+            <div class="sign-pad-placeholder" id="placeholder_2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 3h7v7"/></svg>
+              Toque aqui para assinar como responsável
+            </div>
+            <img class="sig-img" id="sig2-preview">
+            <input type="text" class="sign-name-input" id="nome_solicitante_sign" placeholder="Nome completo">
+          </div>
+          <div class="sign-cpf">CPF: <input type="text" id="cpf_solicitante_sign" maxlength="14"></div>
+        </div>
+        <div class="sign-caption">Solicitante Responsável</div>
+      </div>
+    </div>
+
+    <table class="doc-footer">
+      <tr>
+        <td>Referência: PRS CSTI 002 - CRIAÇÃO DE ACESSOS PARA NOVOS COLABORADORES</td>
+        <td class="footer-page">Página 02 de 02</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="toolbar">
+  <span>Só será possível gerar o PDF após as duas assinaturas. Se ainda não houver assinatura do responsável, salve para assinatura.</span>
+  <button id="btn-save-html" type="button">Salvar para assinatura do responsável</button>
+  <button id="btn-generate-pdf">Salvar em PDF</button>
+</div>
+
+<div id="custom-confirm-modal" class="custom-modal">
+  <div class="custom-modal-content">
+    <div class="custom-modal-header">Atenção!</div>
+    <div class="custom-modal-body">
+      <p>Identificamos que os seguintes campos não foram preenchidos:</p>
+      <ul id="modal-empty-fields-list"></ul>
+      <p>Preencha todos os campos destacados em vermelho antes de gerar o PDF.</p>
+    </div>
+    <div class="custom-modal-footer">
+      <button id="btn-modal-cancel" class="modal-btn modal-btn-cancel">Corrigir Campos</button>
+      <button id="btn-modal-confirm" class="modal-btn modal-btn-confirm">Voltar ao formulário</button>
+    </div>
+  </div>
+</div>
+
+<div id="signature-modal" class="custom-modal" style="z-index: 10010;">
+  <div class="custom-modal-content" style="max-width: 480px;">
+    <div class="custom-modal-header" id="sig-modal-title">Assinatura Digital</div>
+    <div class="custom-modal-body" style="padding: 20px;">
+      <p style="margin-bottom: 5px; font-weight: 500;">Desenhe sua assinatura no espaço abaixo:</p>
+      <div class="signature-canvas-container">
+        <canvas id="signature-canvas"></canvas>
+      </div>
+      <p style="font-size: 10pt; color: #888; margin-top: -5px;">Você pode assinar usando o dedo em celulares/tablets ou o mouse no computador.</p>
+    </div>
+    <div class="custom-modal-footer">
+      <button id="btn-sig-clear" class="modal-btn modal-btn-cancel" style="background: #f1f1f1; color: #333; margin-right: auto;">Limpar</button>
+      <button id="btn-sig-cancel" class="modal-btn modal-btn-cancel">Cancelar</button>
+      <button id="btn-sig-confirm" class="modal-btn modal-btn-confirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'termo_usuarios_hmtj_dados';
+
+  // ===== Máscara e validação de CPF =====
+  const maskCPF = (val) => {
+    let v = val.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 9) return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6,9)}-${v.slice(9)}`;
+    if (v.length > 6) return `${v.slice(0,3)}.${v.slice(3,6)}.${v.slice(6)}`;
+    if (v.length > 3) return `${v.slice(0,3)}.${v.slice(3)}`;
+    return v;
+  };
+  const isValidCPF = (value) => {
+    const digits = String(value || '').replace(/\D/g, '');
+    if (digits.length !== 11 || /^([0-9])\1{10}$/.test(digits)) return false;
+    let sum = 0;
+    for (let i = 0; i < 9; i++) sum += Number(digits[i]) * (10 - i);
+    let check = (sum * 10) % 11;
+    if (check === 10) check = 0;
+    if (check !== Number(digits[9])) return false;
+    sum = 0;
+    for (let i = 0; i < 10; i++) sum += Number(digits[i]) * (11 - i);
+    check = (sum * 10) % 11;
+    if (check === 10) check = 0;
+    return check === Number(digits[10]);
+  };
+  ['cpf_colaborador','cpf_usuario_sign','cpf_solicitante_sign'].forEach(id => {
+    document.getElementById(id).addEventListener('input', (e) => e.target.value = maskCPF(e.target.value));
+  });
+
+  const chapaColaborador = document.getElementById('chapa_colaborador');
+
+  // Espelha nome e CPF do colaborador no bloco de assinatura "Usuário".
+  // O CPF é sincronizado nos dois sentidos, sem criar um ciclo de eventos.
+  const cpfColaborador = document.getElementById('cpf_colaborador');
+  const cpfUsuarioSign = document.getElementById('cpf_usuario_sign');
+  let sincronizandoCpf = false;
+  function sincronizarCpf(origem, destino) {
+    if (sincronizandoCpf) return;
+    sincronizandoCpf = true;
+    const valor = maskCPF(origem.value);
+    origem.value = valor;
+    destino.value = valor;
+    sincronizandoCpf = false;
+  }
+  cpfColaborador.addEventListener('input', () => sincronizarCpf(cpfColaborador, cpfUsuarioSign));
+  cpfUsuarioSign.addEventListener('input', () => sincronizarCpf(cpfUsuarioSign, cpfColaborador));
+
+  const nomeCompleto = document.getElementById('nome_completo');
+  const nomeUsuarioSign = document.getElementById('nome_usuario_sign');
+  nomeCompleto.addEventListener('input', () => nomeUsuarioSign.value = nomeCompleto.value);
+
+  // ===== Campos condicionais e paginação adaptativa =====
+  const formContainer = document.getElementById('printable-form-content');
+  const page1 = document.getElementById('page-1');
+  const page2 = document.getElementById('page-2');
+  const page1Content = page1.querySelector('.content');
+  const page2Content = page2.querySelector('.content');
+  const page2Continuation = document.getElementById('page2-continuation');
+  const page1BaseChildren = Array.from(page1Content.children);
+  const page2BaseChildren = Array.from(page2Content.children);
+  const baseTableRows = new Map(
+    [...page1.querySelectorAll('table.data-tbl'), ...page2.querySelectorAll('table.data-tbl')]
+      .map(table => [table, Array.from(table.rows)])
+  );
+  const baseListItems = new Map(
+    [...page1.querySelectorAll('ol.pol-list, ol.pol-list ul'), ...page2.querySelectorAll('ol.pol-list, ol.pol-list ul')]
+      .map(list => [list, Array.from(list.children)])
+  );
+  let generatedPages = [];
+  let hiddenOverflowNodes = [];
+
+  function hasContentOverflow(page) {
+    const content = page.querySelector('.content');
+    const footer = page.querySelector('.doc-footer');
+    const footerTop = footer.getBoundingClientRect().top;
+    const children = Array.from(content.children).filter(child => {
+      const style = getComputedStyle(child);
+      return style.display !== 'none' && child.getBoundingClientRect().height > 0;
+    });
+    if (!children.length) return false;
+    const contentBottom = Math.max(...children.map(child => {
+      const rect = child.getBoundingClientRect();
+      const style = getComputedStyle(child);
+      return rect.bottom + parseFloat(style.marginBottom || '0');
+    }));
+    return contentBottom > footerTop - 2;
+  }
+
+  function createContinuationPage(number) {
+    const clone = page2.cloneNode(true);
+    clone.id = `page-${number}`;
+    const cloneContent = clone.querySelector('.content');
+    const cloneContinuation = clone.querySelector('.page-continuation');
+    cloneContinuation.id = `page-${number}-continuation`;
+    cloneContinuation.replaceChildren();
+    Array.from(cloneContent.children).forEach(child => { if (child !== cloneContinuation) child.remove(); });
+    clone.querySelector('.footer-page').textContent = `Página ${String(number).padStart(2, '0')}`;
+    formContainer.appendChild(clone);
+    generatedPages.push(clone);
+    return clone;
+  }
+
+  function restoreBaseTables() {
+    // Linhas que foram transferidas para uma página seguinte retornam à tabela
+    // original antes de cada novo cálculo, sem perder valores ou listeners.
+    baseTableRows.forEach((rows, table) => {
+      const tbody = table.tBodies[0] || table;
+      rows.forEach(row => tbody.appendChild(row));
+    });
+  }
+
+  function restoreBaseLists() {
+    // Itens de listas transferidos para uma continuação também retornam ao
+    // elemento original antes de recalcular a distribuição.
+    baseListItems.forEach((items, list) => {
+      items.forEach(item => list.appendChild(item));
+    });
+  }
+
+  function splitOverflowingTable(page, table, targetContainer) {
+    if (table.rows.length <= 1) return false;
+    const continuationTable = table.cloneNode(false);
+    continuationTable.removeAttribute('id');
+    const tbody = document.createElement('tbody');
+    continuationTable.appendChild(tbody);
+    targetContainer.prepend(continuationTable);
+
+    let moved = false;
+    while (hasContentOverflow(page) && table.rows.length > 1) {
+      tbody.prepend(table.rows[table.rows.length - 1]);
+      moved = true;
+    }
+    if (!tbody.rows.length) continuationTable.remove();
+    return moved;
+  }
+
+  function splitOverflowingList(page, list, targetContainer) {
+    if (!list.children.length) return false;
+    const continuationList = list.cloneNode(false);
+    continuationList.removeAttribute('id');
+    continuationList.removeAttribute('start');
+    targetContainer.prepend(continuationList);
+
+    let moved = false;
+    const lastItem = list.lastElementChild;
+    const nestedList = lastItem && lastItem.querySelector(':scope > ul');
+    if (nestedList && nestedList.children.length > 1) {
+      const continuationItem = document.createElement('li');
+      const continuationNestedList = nestedList.cloneNode(false);
+      continuationItem.appendChild(continuationNestedList);
+      continuationList.prepend(continuationItem);
+      while (hasContentOverflow(page) && nestedList.children.length > 1) {
+        continuationNestedList.prepend(nestedList.lastElementChild);
+        moved = true;
+      }
+    }
+
+    while (hasContentOverflow(page) && list.children.length > 1) {
+      continuationList.prepend(list.lastElementChild);
+      moved = true;
+    }
+    const originalStart = Number(list.getAttribute('start') || 1);
+    continuationList.setAttribute('start', String(originalStart + list.children.length));
+    if (!continuationList.children.length) continuationList.remove();
+    return moved;
+  }
+
+  function moveOverflowFromPage(page, targetContainer) {
+    let safety = 0;
+    while (hasContentOverflow(page) && safety++ < 100) {
+      const content = page.querySelector('.content');
+      if (!content.children.length) break;
+      const source = content.lastElementChild;
+
+      if (source.matches('table.data-tbl')) {
+        const split = splitOverflowingTable(page, source, targetContainer);
+        if (split && !hasContentOverflow(page)) break;
+      } else if (source.matches('ol.pol-list')) {
+        const split = splitOverflowingList(page, source, targetContainer);
+        if (split && !hasContentOverflow(page)) break;
+      } else if (source.classList.contains('page-continuation') && source.children.length > 1) {
+        targetContainer.prepend(source.lastElementChild);
+      } else if (content.children.length > 1) {
+        targetContainer.prepend(source);
+      } else {
+        break;
+      }
+    }
+  }
+
+  function pullContentToPage1() {
+    const movableChildren = () => Array.from(page2Content.children).filter(child => {
+      const style = getComputedStyle(child);
+      return child !== page2Continuation && style.display !== 'none' && child.getBoundingClientRect().height > 0;
+    });
+
+    let safety = 0;
+    while (movableChildren().length && safety++ < 50) {
+      const candidate = movableChildren()[0];
+      const nextSibling = candidate.nextElementSibling;
+      page1Content.appendChild(candidate);
+      if (hasContentOverflow(page1)) {
+        if (nextSibling) page2Content.insertBefore(candidate, nextSibling);
+        else page2Content.appendChild(candidate);
+        break;
+      }
+    }
+  }
+
+  function updatePageNumbers() {
+    const pages = Array.from(formContainer.querySelectorAll('.page'));
+    const total = String(pages.length).padStart(2, '0');
+    pages.forEach((page, index) => {
+      const footer = page.querySelector('.footer-page');
+      if (footer) footer.textContent = `Página ${String(index + 1).padStart(2, '0')} de ${total}`;
+    });
+  }
+
+  function rebalancePages() {
+    const elementoAtivo = document.activeElement;
+    const idElementoAtivo = elementoAtivo && elementoAtivo.id;
+    const inicioSelecao = elementoAtivo && typeof elementoAtivo.selectionStart === 'number' ? elementoAtivo.selectionStart : null;
+    const fimSelecao = elementoAtivo && typeof elementoAtivo.selectionEnd === 'number' ? elementoAtivo.selectionEnd : null;
+    restoreBaseTables();
+    restoreBaseLists();
+    page1Content.replaceChildren(...page1BaseChildren);
+    page2Content.replaceChildren(...page2BaseChildren);
+    generatedPages.forEach(page => page.remove());
+    generatedPages = [];
+    page2Continuation.replaceChildren();
+
+    // Primeiro aproveita espaço livre, trazendo blocos iniciais da página 2
+    // para a página 1 sem alterar a fonte ou a ordem do documento.
+    pullContentToPage1();
+
+    // A página 1 mantém todos os blocos que couberem. Apenas o excedente é
+    // transferido, inclusive linha a linha quando o excedente estiver em uma tabela.
+    moveOverflowFromPage(page1, page2Continuation);
+
+    let previousPage = page2;
+    let number = 3;
+    let safety = 0;
+    while (hasContentOverflow(previousPage) && safety++ < 50) {
+      const nextPage = createContinuationPage(number++);
+      const nextContinuation = nextPage.querySelector('.page-continuation');
+      moveOverflowFromPage(previousPage, nextContinuation);
+      if (!nextContinuation.children.length) {
+        nextPage.remove();
+        generatedPages = generatedPages.filter(page => page !== nextPage);
+        break;
+      }
+      previousPage = nextPage;
+    }
+    updatePageNumbers();
+    if (idElementoAtivo) {
+      const novoElementoAtivo = document.getElementById(idElementoAtivo);
+      if (novoElementoAtivo && !novoElementoAtivo.disabled) {
+        novoElementoAtivo.focus({ preventScroll: true });
+        if (inicioSelecao !== null && typeof novoElementoAtivo.setSelectionRange === 'function') {
+          const limite = novoElementoAtivo.value.length;
+          novoElementoAtivo.setSelectionRange(Math.min(inicioSelecao, limite), Math.min(fimSelecao ?? inicioSelecao, limite));
+        }
+      }
+    }
+  }
+
+  let rebalanceFrame = 0;
+  let rebalanceTimer = 0;
+  function scheduleRebalance() {
+    clearTimeout(rebalanceTimer);
+    rebalanceTimer = setTimeout(() => {
+      cancelAnimationFrame(rebalanceFrame);
+      rebalanceFrame = requestAnimationFrame(() => {
+        rebalanceFrame = 0;
+        rebalancePages();
+      });
+    }, 80);
+  }
+
+  function syncChapaPulse() {
+    const contratoClt = document.getElementById('contrato_clt').checked;
+    const chapaColaborador = document.getElementById('chapa_colaborador');
+    const devePiscar = contratoClt && !chapaColaborador.value.trim();
+    chapaColaborador.classList.toggle('chapa-pulse', devePiscar);
+  }
+
+  function syncRegistroPulse() {
+    const selecionado = document.querySelector('input[name="registro_profissional"]:checked');
+    const numeroInline = document.getElementById('registro_numero_inline');
+    const numeroRegistro = document.getElementById('num_registro');
+    const outroInput = document.getElementById('registro_outro_txt');
+    const exigeNumero = Boolean(selecionado && selecionado.value !== 'NAO_POSSUI');
+    const outroSelecionado = Boolean(selecionado && selecionado.value === 'OUTRO');
+    numeroInline.classList.toggle('is-visible', exigeNumero);
+    numeroRegistro.classList.toggle('registro-pulse', exigeNumero && !numeroRegistro.value.trim());
+    outroInput.disabled = !outroSelecionado;
+    if (!outroSelecionado) outroInput.value = '';
+    if (!selecionado || !exigeNumero) numeroRegistro.value = '';
+  }
+
+  function syncUsuarioModeloFields() {
+    const naoPossui = document.getElementById('usuario_modelo_nao_possui').checked;
+    const usuarioModelo = document.getElementById('usuario_modelo');
+    const rowPermissoes = document.getElementById('row_permissoes_sistema');
+    const exemplos = document.getElementById('usuario_modelo_examples');
+    usuarioModelo.disabled = naoPossui;
+    if (naoPossui) usuarioModelo.value = '';
+    rowPermissoes.classList.toggle('is-visible', naoPossui);
+    exemplos.classList.toggle('is-visible', naoPossui);
+    scheduleRebalance();
+  }
+
+  function syncConditionalFields() {
+    const contratoClt = document.getElementById('contrato_clt').checked;
+    const chapaInline = document.getElementById('contrato_chapa_inline');
+    const chapaColaborador = document.getElementById('chapa_colaborador');
+    chapaInline.classList.toggle('is-visible', contratoClt);
+    if (!contratoClt) chapaColaborador.value = '';
+    syncChapaPulse();
+    syncRegistroPulse();
+    syncUsuarioModeloFields();
+
+    const outroContrato = document.getElementById('contrato_outro').checked;
+    const outroContratoInput = document.getElementById('contrato_outro_txt');
+    outroContratoInput.disabled = !outroContrato;
+    if (!outroContrato) outroContratoInput.value = '';
+
+    const mvSelected = document.getElementById('sis_mv').checked;
+    const assinaNao = document.getElementById('mv_assina_nao').checked;
+    const tipoContratoSelecionado = document.querySelector('input[name="tipo_contrato"]:checked');
+    const contratoDefinido = Boolean(tipoContratoSelecionado);
+    const contratoEhPj = contratoDefinido && tipoContratoSelecionado.value === 'PJ';
+    const contratoNaoEhPj = contratoDefinido && !contratoEhPj;
+    const rowCns = document.getElementById('row_mv_cns');
+    const rowAssina = document.getElementById('row_mv_assina');
+    const rowCertificado = document.getElementById('row_mv_certificado');
+    const rowPj = document.getElementById('row_mv_pj');
+    const rowContato = document.getElementById('row_mv_contato');
+    rowCns.classList.toggle('is-visible', mvSelected);
+    const pjDeclarado = contratoEhPj || (!contratoDefinido && document.getElementById('mv_pj_sim').checked);
+    rowAssina.classList.toggle('is-visible', mvSelected);
+    rowCertificado.classList.toggle('is-visible', mvSelected && assinaNao && pjDeclarado);
+    rowPj.classList.toggle('is-visible', mvSelected && assinaNao && !contratoDefinido);
+    if (contratoDefinido) {
+      document.querySelectorAll('input[name="mv_pj"]').forEach(input => { input.checked = false; });
+    }
+    const mvIndicaNaoPj = !contratoDefinido && document.getElementById('mv_pj_nao').checked;
+    rowContato.classList.toggle('is-visible', mvSelected && assinaNao && (contratoNaoEhPj || mvIndicaNaoPj));
+    scheduleRebalance();
+  }
+  document.querySelectorAll('input[name="sistemas"], input[name="mv_assina"], input[name="mv_pj"], input[name="tipo_contrato"], input[name="registro_profissional"]').forEach(el => el.addEventListener('change', syncConditionalFields));
+
+  function autoGrowTextarea(textarea) {
+    if (!textarea) return;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${Math.max(textarea.scrollHeight, 28)}px`;
+  }
+
+  // O formulário não utiliza salvamento automático: cada abertura começa zerada.
+
+  document.addEventListener('DOMContentLoaded', () => {
+    syncConditionalFields();
+    const container = document.getElementById('printable-form-content');
+    container.querySelectorAll('textarea.cell-input').forEach(autoGrowTextarea);
+    container.addEventListener('input', (event) => {
+      if (['cpf_colaborador', 'cpf_usuario_sign', 'cpf_solicitante_sign'].includes(event.target.id)) {
+        event.target.value = maskCPF(event.target.value);
+        if (event.target.id === 'cpf_colaborador') sincronizarCpf(cpfColaborador, cpfUsuarioSign);
+        if (event.target.id === 'cpf_usuario_sign') sincronizarCpf(cpfUsuarioSign, cpfColaborador);
+      }
+      event.target.classList.remove('field-missing');
+      if (event.target.id === 'chapa_colaborador') syncChapaPulse();
+      if (event.target.id === 'num_registro' || event.target.id === 'registro_outro_txt') syncRegistroPulse();
+      if (event.target.matches('textarea.cell-input')) autoGrowTextarea(event.target);
+      const row = event.target.closest('tr');
+      if (row) row.classList.remove('field-missing-row');
+    });
+    container.addEventListener('blur', (event) => {
+      if (event.target.matches('textarea.cell-input')) scheduleRebalance();
+    }, true);
+    container.addEventListener('change', (event) => {
+      event.target.classList.remove('field-missing');
+      if (event.target.id === 'usuario_modelo_nao_possui') syncUsuarioModeloFields();
+      const row = event.target.closest('tr');
+      if (row) row.classList.remove('field-missing-row');
+    });
+    rebalancePages();
+    if (typeof ResizeObserver !== 'undefined') {
+      const layoutObserver = new ResizeObserver(() => scheduleRebalance());
+      container.querySelectorAll('textarea.cell-input').forEach(textarea => layoutObserver.observe(textarea));
+    }
+  });
+
+  // ===== Modal de confirmação de campos vazios =====
+  function showCustomConfirm(emptyFields) {
+    return new Promise((resolve) => {
+      const modal = document.getElementById('custom-confirm-modal');
+      const list = document.getElementById('modal-empty-fields-list');
+      const btnConfirm = document.getElementById('btn-modal-confirm');
+      const btnCancel = document.getElementById('btn-modal-cancel');
+      list.innerHTML = '';
+      emptyFields.forEach(f => { const li = document.createElement('li'); li.textContent = f; list.appendChild(li); });
+      modal.style.display = 'flex';
+      const onConfirm = () => { cleanup(); resolve(true); };
+      const onCancel = () => { cleanup(); resolve(false); };
+      const cleanup = () => {
+        btnConfirm.removeEventListener('click', onConfirm);
+        btnCancel.removeEventListener('click', onCancel);
+        modal.style.display = 'none';
+      };
+      btnConfirm.addEventListener('click', onConfirm);
+      btnCancel.addEventListener('click', onCancel);
+    });
+  }
+
+  // ===== Zoom / orientação =====
+  let lastOrientation = window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+  function resetZoom() {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+      setTimeout(() => viewport.setAttribute('content', 'width=840, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes'), 150);
+    }
+  }
+  if (window.screen && window.screen.orientation) {
+    window.screen.orientation.addEventListener('change', () => resetZoom());
+  }
+
+  // ===== Assinatura digital (dois pads independentes: 1=Usuário, 2=Solicitante) =====
+  let signaturePad;
+  let currentTarget = null;
+  const sigCanvas = document.getElementById('signature-canvas');
+
+  function resizeSignatureCanvas() {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    sigCanvas.width = sigCanvas.offsetWidth * ratio;
+    sigCanvas.height = sigCanvas.offsetHeight * ratio;
+    sigCanvas.getContext('2d').scale(ratio, ratio);
+    if (signaturePad) signaturePad.clear();
+  }
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    const currentOrientation = window.innerHeight > window.innerWidth ? 'portrait' : 'landscape';
+    if (currentOrientation !== lastOrientation) { lastOrientation = currentOrientation; resetZoom(); }
+    const sigModal = document.getElementById('signature-modal');
+    if (signaturePad && sigModal.style.display === 'flex') {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const savedData = signaturePad.toData();
+        resizeSignatureCanvas();
+        signaturePad.fromData(savedData);
+        scheduleRebalance();
+      }, 200);
+    }
+  });
+
+  function showSigPreview(target, dataUrl) {
+    const img = document.getElementById('sig' + target + '-preview');
+    const placeholder = document.getElementById('placeholder_' + target);
+    img.src = dataUrl;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  }
+
+  function hasValidSignature(target) {
+    const img = document.getElementById('sig' + target + '-preview');
+    const src = img ? (img.getAttribute('src') || '') : '';
+    return Boolean(img && getComputedStyle(img).display !== 'none' && /^data:image\/(png|jpeg|jpg);base64,/.test(src));
+  }
+
+  function openSignaturePad(target) {
+    return new Promise((resolve) => {
+      currentTarget = target;
+      const sigModal = document.getElementById('signature-modal');
+      const btnConfirm = document.getElementById('btn-sig-confirm');
+      const btnCancel = document.getElementById('btn-sig-cancel');
+      const btnClear = document.getElementById('btn-sig-clear');
+      const title = document.getElementById('sig-modal-title');
+      title.textContent = target === '1' ? 'Assinatura do Usuário' : 'Assinatura do Solicitante Responsável';
+
+      resetZoom();
+      sigModal.style.display = 'flex';
+
+      if (!signaturePad) signaturePad = new SignaturePad(sigCanvas, { penColor: 'rgb(0, 0, 0)' });
+      resizeSignatureCanvas();
+
+      const onConfirm = () => {
+        if (signaturePad.isEmpty()) { alert('Por favor, faça sua assinatura antes de continuar.'); return; }
+        const dataUrl = signaturePad.toDataURL('image/png');
+        showSigPreview(target, dataUrl);
+        cleanup();
+        resolve(true);
+      };
+      const onCancel = () => { cleanup(); resolve(false); };
+      const onClear = () => signaturePad.clear();
+      const cleanup = () => {
+        btnConfirm.removeEventListener('click', onConfirm);
+        btnCancel.removeEventListener('click', onCancel);
+        btnClear.removeEventListener('click', onClear);
+        sigModal.style.display = 'none';
+      };
+      btnConfirm.addEventListener('click', onConfirm);
+      btnCancel.addEventListener('click', onCancel);
+      btnClear.addEventListener('click', onClear);
+    });
+  }
+
+  document.getElementById('pad_usuario').addEventListener('click', (e) => { if (e.target.id !== 'nome_usuario_sign') openSignaturePad('1'); });
+  document.getElementById('pad_solicitante').addEventListener('click', (e) => { if (e.target.id !== 'nome_solicitante_sign') openSignaturePad('2'); });
+  document.getElementById('nome_usuario_sign').addEventListener('click', (e) => e.stopPropagation());
+  document.getElementById('nome_solicitante_sign').addEventListener('click', (e) => e.stopPropagation());
+
+  function collectHtmlValidationErrors() {
+    const errors = [];
+    const requiredIds = [
+      ['nome_completo', 'Nome completo'],
+      ['cpf_colaborador', 'CPF do colaborador'],
+      ['unidade', 'Unidade'],
+      ['setor', 'Setor'],
+      ['cargo', 'Cargo'],
+      ['nome_usuario_sign', 'Nome na assinatura do Usuário'],
+      ['cpf_usuario_sign', 'CPF do Usuário']
+    ];
+    requiredIds.forEach(([id, label]) => {
+      const el = document.getElementById(id);
+      if (el && !el.value.trim()) errors.push(label);
+    });
+    if (!hasValidSignature('1')) errors.push('Assinatura do Usuário');
+    if (!document.querySelector('input[name="registro_profissional"]:checked')) errors.push('Registro profissional');
+    const registro = document.querySelector('input[name="registro_profissional"]:checked');
+    if (registro && registro.value === 'OUTRO' && !document.getElementById('registro_outro_txt').value.trim()) errors.push('Descrição do outro conselho profissional');
+    if (registro && registro.value !== 'NAO_POSSUI' && !document.getElementById('num_registro').value.trim()) errors.push('N° Regist.');
+    const contrato = document.querySelector('input[name="tipo_contrato"]:checked');
+    if (!contrato) errors.push('Tipo de contrato');
+    if (contrato && contrato.value === 'OUTRO' && !document.getElementById('contrato_outro_txt').value.trim()) errors.push('Descrição do outro tipo de contrato');
+    if (document.getElementById('contrato_clt').checked && !document.getElementById('chapa_colaborador').value.trim()) errors.push('Chapa');
+    if (!document.querySelector('input[name="sistemas"]:checked')) errors.push('Sistemas');
+    ['cpf_colaborador', 'cpf_usuario_sign', 'cpf_solicitante_sign'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el.value.trim() && !isValidCPF(el.value)) errors.push(`${id === 'cpf_colaborador' ? 'CPF do colaborador' : id === 'cpf_usuario_sign' ? 'CPF do Usuário' : 'CPF do Solicitante Responsável'} — inválido`);
+    });
+    if (document.getElementById('sis_mv').checked) {
+      if (!document.getElementById('mv_cns').value.trim()) errors.push('Cartão Nacional de Saúde');
+      if (!document.querySelector('input[name="mv_assina"]:checked')) errors.push('Se consegue assinar dentro do MV');
+      const tipo = document.querySelector('input[name="tipo_contrato"]:checked');
+      const contratoDefinido = Boolean(tipo);
+      const contratoEhPj = contratoDefinido && tipo.value === 'PJ';
+      if (document.getElementById('mv_assina_nao').checked && !contratoDefinido && !document.querySelector('input[name="mv_pj"]:checked')) errors.push('Pessoa jurídica (PJ) — Sim ou Não');
+      const naoPj = !contratoEhPj && (contratoDefinido || document.getElementById('mv_pj_nao').checked);
+      if (document.getElementById('mv_assina_nao').checked && naoPj) {
+        if (!document.getElementById('mv_telefone').value.trim()) errors.push('Telefone');
+        if (!document.getElementById('mv_email').value.trim()) errors.push('E-mail');
+      }
+    }
+    const semModelo = document.getElementById('usuario_modelo_nao_possui').checked;
+    if (semModelo && !document.getElementById('permissoes_sistema').value.trim()) errors.push('Permissões do sistema e Pastas de trabalho');
+    return errors;
+  }
+
+  function downloadFilledHtml() {
+    const clone = document.documentElement.cloneNode(true);
+    const liveFields = document.querySelectorAll('input, textarea, select');
+    const clonedFields = clone.querySelectorAll('input, textarea, select');
+    liveFields.forEach((field, index) => {
+      const copy = clonedFields[index];
+      if (!copy) return;
+      if (field.tagName === 'TEXTAREA') copy.textContent = field.value;
+      else if (field.type === 'checkbox' || field.type === 'radio') {
+        if (field.checked) copy.setAttribute('checked', ''); else copy.removeAttribute('checked');
+      } else copy.setAttribute('value', field.value);
+    });
+    clone.querySelectorAll('.field-missing, .field-missing-row').forEach(el => el.classList.remove('field-missing', 'field-missing-row'));
+    const savedButton = clone.querySelector('#btn-save-html');
+    if (savedButton) {
+      savedButton.disabled = false;
+      savedButton.removeAttribute('disabled');
+      savedButton.textContent = 'Salvar para assinatura do responsável';
+    }
+    const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const nome = String(document.getElementById('nome_completo').value || 'termo-preenchido').trim().replace(/[^a-z0-9À-ÿ _-]/gi, '-').replace(/\s+/g, ' ');
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${nome || 'termo-preenchido'} - para-assinatura.html`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  document.getElementById('btn-save-html').addEventListener('click', async function () {
+    const button = this;
+    const errors = collectHtmlValidationErrors();
+    if (errors.length) {
+      await showCustomConfirm(errors);
+      return;
+    }
+    button.disabled = true;
+    button.innerText = 'Salvando...';
+    try { downloadFilledHtml(); }
+    finally { button.disabled = false; button.innerText = 'Salvar para assinatura do responsável'; }
+  });
+
+  // ===== Geração de PDF =====
+  document.getElementById('btn-generate-pdf').addEventListener('click', async function () {
+    const button = this;
+
+    const sig1Preview = document.getElementById('sig1-preview');
+    const sig2Preview = document.getElementById('sig2-preview');
+    button.innerText = 'Validando campos...';
+    button.disabled = true;
+
+    document.querySelectorAll('.field-missing, .field-missing-row').forEach(el => el.classList.remove('field-missing', 'field-missing-row'));
+    const fieldsToValidate = [
+      { id: 'nome_completo', label: 'Nome completo' },
+      { id: 'cpf_colaborador', label: 'CPF do colaborador' },
+      { id: 'unidade', label: 'Unidade' },
+      { id: 'setor', label: 'Setor' },
+      { id: 'cargo', label: 'Cargo' },
+      { id: 'nome_usuario_sign', label: 'Nome na assinatura do Usuário' },
+      { id: 'cpf_usuario_sign', label: 'CPF do Usuário' },
+      { id: 'nome_solicitante_sign', label: 'Nome do Solicitante Responsável' },
+      { id: 'cpf_solicitante_sign', label: 'CPF do Solicitante Responsável' }
+    ];
+    const markMissing = (el, label, group = false) => {
+      if (!el) return;
+      if (group) (el.closest('tr') || el.parentElement).classList.add('field-missing-row');
+      else el.classList.add('field-missing');
+      emptyFields.push(label);
+    };
+    let emptyFields = [];
+    if (!hasValidSignature('1')) {
+      document.getElementById('pad_usuario').classList.add('field-missing');
+      emptyFields.push('Assinatura do Usuário');
+    }
+    if (!hasValidSignature('2')) {
+      document.getElementById('pad_solicitante').classList.add('field-missing');
+      emptyFields.push('Assinatura do Solicitante Responsável');
+    }
+    fieldsToValidate.forEach(field => {
+      const el = document.getElementById(field.id);
+      if (el && !el.value.trim()) markMissing(el, field.label);
+    });
+
+    const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
+    if (!registroSelecionado) {
+      markMissing(document.getElementById('registro_crm'), 'Registro profissional', true);
+    } else if (registroSelecionado.value === 'OUTRO') {
+      const registroOutroInput = document.getElementById('registro_outro_txt');
+      if (!registroOutroInput.value.trim()) markMissing(registroOutroInput, 'Descrição do outro conselho profissional');
+    }
+    if (registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI') {
+      const numeroRegistro = document.getElementById('num_registro');
+      if (!numeroRegistro.value.trim()) markMissing(numeroRegistro, 'N° Registro profissional');
+    }
+
+    const tipoContratoSelecionado = document.querySelector('input[name="tipo_contrato"]:checked');
+    if (!tipoContratoSelecionado) {
+      markMissing(document.getElementById('contrato_clt'), 'Tipo de contrato', true);
+    } else if (tipoContratoSelecionado.value === 'OUTRO') {
+      const outroContratoInput = document.getElementById('contrato_outro_txt');
+      if (!outroContratoInput.value.trim()) markMissing(outroContratoInput, 'Descrição do outro tipo de contrato');
+    }
+
+    const chapaColaborador = document.getElementById('chapa_colaborador');
+    if (document.getElementById('contrato_clt').checked) {
+      if (!chapaColaborador.value.trim()) markMissing(chapaColaborador, 'Chapa');
+    } else {
+      chapaColaborador.classList.remove('field-missing');
+    }
+    if (!document.querySelector('input[name="sistemas"]:checked')) markMissing(document.querySelector('input[name="sistemas"]'), 'Sistemas', true);
+    ['cpf_colaborador', 'cpf_usuario_sign', 'cpf_solicitante_sign'].forEach(id => {
+      const cpf = document.getElementById(id);
+      if (cpf.value.trim() && !isValidCPF(cpf.value)) {
+        markMissing(cpf, `${id === 'cpf_colaborador' ? 'CPF do colaborador' : id === 'cpf_usuario_sign' ? 'CPF do Usuário' : 'CPF do Solicitante Responsável'} — inválido`);
+      }
+    });
+
+    const mvSelected = document.getElementById('sis_mv').checked;
+    if (mvSelected) {
+      if (!document.getElementById('mv_cns').value.trim()) markMissing(document.getElementById('mv_cns'), 'Cartão Nacional de Saúde');
+      if (!document.querySelector('input[name="mv_assina"]:checked')) markMissing(document.querySelector('input[name="mv_assina"]'), 'Se consegue assinar dentro do MV — Sim ou Não', true);
+      const tipoContratoSelecionado = document.querySelector('input[name="tipo_contrato"]:checked');
+      const contratoDefinido = Boolean(tipoContratoSelecionado);
+      const contratoEhPj = contratoDefinido && tipoContratoSelecionado.value === 'PJ';
+      const contratoNaoEhPj = contratoDefinido && !contratoEhPj;
+      if (document.getElementById('mv_assina_nao').checked && !contratoDefinido && !document.querySelector('input[name="mv_pj"]:checked')) {
+        markMissing(document.querySelector('input[name="mv_pj"]'), 'Pessoa jurídica (PJ) — Sim ou Não', true);
+      }
+      const mvIndicaNaoPj = !contratoDefinido && document.getElementById('mv_pj_nao').checked;
+      if (document.getElementById('mv_assina_nao').checked && (contratoNaoEhPj || mvIndicaNaoPj)) {
+        if (!document.getElementById('mv_telefone').value.trim()) markMissing(document.getElementById('mv_telefone'), 'Telefone');
+        if (!document.getElementById('mv_email').value.trim()) markMissing(document.getElementById('mv_email'), 'E-mail');
+      }
+    }
+
+    const usuarioModeloEl = document.getElementById('usuario_modelo');
+    const usuarioModeloNaoPossui = document.getElementById('usuario_modelo_nao_possui');
+    if (usuarioModeloNaoPossui.checked) {
+      const permissoesEl = document.getElementById('permissoes_sistema');
+      if (!permissoesEl.value.trim()) markMissing(permissoesEl, 'Permissões do sistema e Pastas de trabalho (obrigatório quando não possui Usuário modelo)');
+    } else if (!usuarioModeloEl.value.trim()) {
+      markMissing(usuarioModeloEl, 'Usuário modelo ou marcar “Não possui”');
+    }
+
+    if (emptyFields.length > 0) {
+      await showCustomConfirm(emptyFields);
+      button.innerText = 'Salvar em PDF';
+      button.disabled = false;
+      return;
+    }
+
+    button.innerText = 'Processando...';
+
+    try {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4', compress: true });
+      let pageIds = [];
+
+      const textareas = document.querySelectorAll('textarea.cell-input');
+      const replacements = [];
+      textareas.forEach(ta => {
+        const div = document.createElement('div');
+        div.className = ta.className;
+        div.style.cssText = ta.style.cssText;
+        div.style.whiteSpace = 'pre-wrap';
+        div.style.wordBreak = 'break-word';
+        div.style.display = 'block';
+        div.style.minHeight = '7mm';
+        div.innerText = ta.value;
+        ta.style.display = 'none';
+        ta.parentNode.insertBefore(div, ta);
+        replacements.push({ ta, div });
+      });
+
+      // ===== Correção de fidelidade do PDF =====
+      // html2canvas não renderiza bem <input> nativos (corta o topo do texto,
+      // imprime o placeholder cinza como se fosse conteúdo e desenha checkboxes
+      // fora do tamanho definido em CSS). A solução é a mesma já usada acima
+      // para os <textarea>: trocar cada campo por uma cópia estática fiel ao
+      // valor preenchido, tirar o "print" e devolver o campo editável depois.
+      const STYLE_PROPS_TO_CLONE = [
+        'position', 'top', 'left', 'right', 'bottom', 'transform',
+        'width', 'minWidth', 'maxWidth', 'height', 'minHeight',
+        'display', 'boxSizing', 'textAlign', 'verticalAlign',
+        'fontFamily', 'fontSize', 'fontWeight', 'fontStyle', 'color',
+        'padding', 'margin',
+        'borderBottomWidth', 'borderBottomStyle', 'borderBottomColor',
+        'lineHeight', 'background', 'backgroundColor'
+      ];
+
+      function staticTextReplica(input) {
+        const cs = getComputedStyle(input);
+        const rep = document.createElement('div');
+        STYLE_PROPS_TO_CLONE.forEach(p => { rep.style[p] = cs[p]; });
+        rep.style.whiteSpace = 'pre';
+        rep.style.overflow = 'visible';
+        rep.style.pointerEvents = 'none';
+        rep.textContent = input.value; // nunca o placeholder, só o valor real
+        return rep;
+      }
+
+      const textInputs = document.querySelectorAll('#printable-form-content input[type="text"], #printable-form-content input[type="tel"], #printable-form-content input[type="email"]');
+      const inputReplacements = [];
+      textInputs.forEach(inp => {
+        const rep = staticTextReplica(inp);
+        inp.style.display = 'none';
+        inp.parentNode.insertBefore(rep, inp);
+        inputReplacements.push({ inp, rep });
+      });
+
+      function staticCheckboxReplica(chk) {
+        const cs = getComputedStyle(chk);
+        const rep = document.createElement('span');
+        rep.style.display = 'inline-flex';
+        rep.style.alignItems = 'center';
+        rep.style.justifyContent = 'center';
+        rep.style.width = cs.width;
+        rep.style.height = cs.height;
+        rep.style.boxSizing = 'border-box';
+        rep.style.border = '1px solid #000';
+        rep.style.verticalAlign = 'middle';
+        rep.style.background = chk.checked ? '#000' : '#fff';
+        if (chk.checked) {
+          const mark = document.createElement('span');
+          mark.textContent = '\u2713';
+          mark.style.color = '#fff';
+          mark.style.fontSize = cs.width;
+          mark.style.lineHeight = '1';
+          mark.style.transform = 'scale(0.85)';
+          rep.appendChild(mark);
+        }
+        return rep;
+      }
+
+      const checkboxInputs = document.querySelectorAll('#printable-form-content input[type="checkbox"], #printable-form-content input[type="radio"]');
+      const checkboxReplacements = [];
+      checkboxInputs.forEach(chk => {
+        const rep = staticCheckboxReplica(chk);
+        chk.style.display = 'none';
+        chk.parentNode.insertBefore(rep, chk);
+        checkboxReplacements.push({ chk, rep });
+      });
+
+      // As dicas "Toque para assinar sobre o nome" são só instrução de tela;
+      // nunca devem aparecer no documento final.
+      const sigHints = document.querySelectorAll('.sign-pad-placeholder');
+      sigHints.forEach(h => { h.dataset.prevDisplay = h.style.display; h.style.display = 'none'; });
+
+      // Garante que a distribuição esteja atualizada antes da captura.
+      rebalancePages();
+      // Captura todas as páginas existentes, inclusive as criadas dinamicamente.
+      pageIds = Array.from(formContainer.querySelectorAll('.page')).map(page => page.id);
+
+      try {
+        // As páginas permanecem com altura A4 fixa e o rodapé não se move.
+        // O conteúdo excedente já foi transferido para a área de continuação
+        // da página 2 antes da captura.
+        const canvases = [];
+        for (const pageId of pageIds) {
+          const pageEl = document.getElementById(pageId);
+          canvases.push(await html2canvas(pageEl, {
+            scale: 3,
+            useCORS: true,
+            allowTaint: true,
+            logging: false,
+            letterRendering: true,
+            imageTimeout: 15000,
+            windowWidth: document.documentElement.scrollWidth
+          }));
+        }
+
+        const pageWidthPx = canvases[0].width;
+        const pageHeightPx = Math.round(pageWidthPx * 297 / 210);
+        const totalPdfPages = canvases.reduce((total, canvas) => total + Math.max(1, Math.ceil(canvas.height / pageHeightPx)), 0);
+
+        // O número total só é conhecido depois de medir o crescimento real.
+        // Atualizamos o rodapé e recapturamos as páginas para que a numeração
+        // também fique correta quando surgir uma folha adicional.
+        document.querySelectorAll('.footer-page').forEach((el, index) => {
+          el.textContent = `Página ${index + 1} de ${String(totalPdfPages).padStart(2, '0')}`;
+        });
+        let pdfPageIndex = 0;
+        for (const canvas of canvases) {
+          const sliceCount = Math.max(1, Math.ceil(canvas.height / pageHeightPx));
+          for (let slice = 0; slice < sliceCount; slice++) {
+            const sliceCanvas = document.createElement('canvas');
+            sliceCanvas.width = canvas.width;
+            sliceCanvas.height = Math.min(pageHeightPx, canvas.height - slice * pageHeightPx);
+            sliceCanvas.getContext('2d').drawImage(canvas, 0, slice * pageHeightPx, canvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+            const imgData = sliceCanvas.toDataURL('image/png');
+            if (pdfPageIndex > 0) pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, 0, 210, sliceCanvas.height * 210 / canvas.width, undefined, 'FAST');
+            pdfPageIndex++;
+          }
+        }
+      } finally {
+        // Sempre devolve os campos ao normal, mesmo se a captura falhar.
+        replacements.forEach(({ ta, div }) => { ta.style.display = ''; div.remove(); });
+        inputReplacements.forEach(({ inp, rep }) => { inp.style.display = ''; rep.remove(); });
+        checkboxReplacements.forEach(({ chk, rep }) => { chk.style.display = ''; rep.remove(); });
+        sigHints.forEach(h => { h.style.display = h.dataset.prevDisplay || ''; });
+        hiddenOverflowNodes.forEach(node => { node.style.display = ''; });
+        hiddenOverflowNodes = [];
+      }
+
+      const safeFilePart = (value, fallback = 'sem-informacao') => String(value || '').trim().replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ') || fallback;
+      const nomeBase = safeFilePart(document.getElementById('nome_completo').value, 'termo');
+      const chapa = document.getElementById('chapa_colaborador').value.trim();
+      const contratoSelecionadoPdf = document.querySelector('input[name="tipo_contrato"]:checked');
+      let identificadorArquivo = '';
+      if (chapa) {
+        identificadorArquivo = chapa;
+      } else if (contratoSelecionadoPdf) {
+        identificadorArquivo = contratoSelecionadoPdf.value === 'OUTRO'
+          ? document.getElementById('contrato_outro_txt').value
+          : contratoSelecionadoPdf.value;
+      }
+      const nomeArquivo = `${nomeBase} - ${safeFilePart(identificadorArquivo)}.pdf`;
+      pdf.save(nomeArquivo);
+    } catch (err) {
+      console.error(err);
+      alert('Houve um erro na tentativa de criar seu PDF. Por favor, tente novamente.');
+    } finally {
+      button.innerText = 'Salvar em PDF';
+      button.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
