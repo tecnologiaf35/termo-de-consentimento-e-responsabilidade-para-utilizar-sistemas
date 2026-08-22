@@ -168,6 +168,9 @@
   .ex-note { font-size: 10pt; margin: 0.6mm 0 1mm; line-height: 1.15; }
   .mv-cert-alert { display: none; color: #8b1e1e; font-size: 9pt; line-height: 1.2; font-weight: bold; }
   .mv-cert-alert.is-visible { display: table-row; }
+  .mv-flow-note { font-size: 9pt; line-height: 1.25; color: #8b1e1e; font-weight: bold; margin-top: 1.5mm; }
+  .signature-locked { pointer-events: none !important; cursor: default !important; }
+  .signature-locked .sign-name-input { pointer-events: none !important; }
   .ex-note u { text-decoration: underline; }
 
   h4.pol-title { font-size: 10pt; font-weight: bold; margin: 1.5mm 0 1mm; }
@@ -281,6 +284,13 @@
   }
   .toolbar button:hover { background: #e5e5e5; transform: translateY(-1px); }
   .toolbar span { color: #ffffff; font-size: 13px; font-weight: 400; font-family: Arial, Helvetica, sans-serif; }
+
+  @media print {
+    html, body { background: #fff !important; }
+    .toolbar, .custom-modal, #send-loading-overlay { display: none !important; }
+    .page { margin: 0; box-shadow: none; break-after: page; page-break-after: always; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+  }
 
   /* ===== Modais ===== */
   .custom-modal {
@@ -501,6 +511,9 @@
             </div>
           </td>
         </tr>
+        <tr class="conditional-row mv-flow-alert" id="row_mv_fluxo">
+          <td colspan="2" class="mv-flow-note">Após receber as credenciais do MV, aguarde 1 dia útil e entre em contato pelo WhatsApp (61) 9933-8061 para iniciar o processo de emissão da assinatura digital. Para emissão, é necessário realizar todo o fluxo, incluindo a entrevista</td>
+        </tr>
         <tr>
           <td class="lbl">Usuário modelo:</td>
           <td class="val">
@@ -652,7 +665,8 @@
 <div class="toolbar">
   <span id="workflow-instruction">Preencha o termo e assine como Usuário. Depois, envie o HTML ao gestor para ele conferir, completar a parte dele e assinar.</span>
   <button id="btn-send-manager" type="button">Enviar para o gestor assinar</button>
-  <button id="btn-generate-pdf">Salvar em PDF</button>
+  <button id="btn-generate-pdf">Salvar totalmente preenchido e assinado em PDF</button>
+  <button id="btn-print-manual-pdf" type="button">Imprimir para preenchimento manual</button>
 </div>
 
 <div id="custom-confirm-modal" class="custom-modal">
@@ -1065,7 +1079,7 @@
 
   function fluxoEhPj() {
     const tipoContrato = document.querySelector('input[name="tipo_contrato"]:checked');
-    return tipoContrato?.value === 'PJ' || document.getElementById('mv_pj_sim')?.checked;
+    return tipoContrato ? tipoContrato.value === 'PJ' : Boolean(document.getElementById('mv_pj_sim')?.checked);
   }
 
   function atualizarTextoFluxo() {
@@ -1107,6 +1121,7 @@
     const rowCertificado = document.getElementById('row_mv_certificado');
     const rowPj = document.getElementById('row_mv_pj');
     const rowContato = document.getElementById('row_mv_contato');
+    const rowFluxo = document.getElementById('row_mv_fluxo');
     rowCns.classList.toggle('is-visible', mvSelected);
     const pjDeclarado = contratoEhPj || (!contratoDefinido && document.getElementById('mv_pj_sim').checked);
     rowAssina.classList.toggle('is-visible', mvSelected);
@@ -1116,7 +1131,12 @@
       document.querySelectorAll('input[name="mv_pj"]').forEach(input => { input.checked = false; });
     }
     const mvIndicaNaoPj = !contratoDefinido && document.getElementById('mv_pj_nao').checked;
-    rowContato.classList.toggle('is-visible', mvSelected && assinaNao && (contratoNaoEhPj || mvIndicaNaoPj));
+    const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
+    const possuiNumeroRegistro = Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim());
+    const contatoNecessario = mvSelected && assinaNao && !pjDeclarado && possuiNumeroRegistro;
+    const fluxoNecessario = mvSelected && assinaNao && (contratoNaoEhPj || (!contratoDefinido && mvIndicaNaoPj)) && Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI');
+    rowContato.classList.toggle('is-visible', contatoNecessario);
+    rowFluxo.classList.toggle('is-visible', fluxoNecessario);
     atualizarTextoFluxo();
     scheduleRebalance();
   }
@@ -1435,12 +1455,15 @@
       const tipo = document.querySelector('input[name="tipo_contrato"]:checked');
       const contratoDefinido = Boolean(tipo);
       const contratoEhPj = contratoDefinido && tipo.value === 'PJ';
+      const pjDeclarado = contratoEhPj || (!contratoDefinido && document.getElementById('mv_pj_sim').checked);
       if (document.getElementById('mv_assina_nao').checked && !contratoDefinido && !document.querySelector('input[name="mv_pj"]:checked')) {
         errors.push('Pessoa jurídica (PJ) — Sim ou Não');
         destacarGrupo('input[name="mv_pj"]');
       }
-      const naoPj = !contratoEhPj && (contratoDefinido || document.getElementById('mv_pj_nao').checked);
-      if (document.getElementById('mv_assina_nao').checked && naoPj) {
+      const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
+      const possuiNumeroRegistro = Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim());
+      const contatoNecessario = document.getElementById('mv_assina_nao').checked && !pjDeclarado && possuiNumeroRegistro;
+      if (contatoNecessario) {
         if (!document.getElementById('mv_telefone').value.trim()) {
           errors.push('Telefone');
           destacarCampo('mv_telefone');
@@ -1495,6 +1518,18 @@
     `;
     clone.querySelector('head').appendChild(scrollStyle);
 
+    // A assinatura do colaborador deve permanecer imutável no HTML enviado ao responsável.
+    const padUsuario = clone.querySelector('#pad_usuario');
+    if (padUsuario) {
+      padUsuario.classList.add('signature-locked');
+      padUsuario.setAttribute('aria-disabled', 'true');
+      padUsuario.setAttribute('title', 'Assinatura do colaborador já preenchida e protegida');
+      const nomeUsuario = padUsuario.querySelector('#nome_usuario_sign');
+      if (nomeUsuario) { nomeUsuario.readOnly = true; nomeUsuario.setAttribute('readonly', 'readonly'); }
+      const placeholderUsuario = padUsuario.querySelector('#placeholder_1');
+      if (placeholderUsuario) placeholderUsuario.remove();
+    }
+
     // Somente os campos obrigatórios da primeira etapa ficam protegidos.
     // Campos opcionais continuam editáveis para a Coordenação direta/administrativo.
     const idsObrigatoriosEtapaInicial = new Set([
@@ -1509,7 +1544,7 @@
     ]);
     const camposClonados = Array.from(clone.querySelectorAll('input, textarea, select'));
     camposClonados.forEach(field => {
-      if (field.id === 'nome_solicitante_sign' || field.id === 'cpf_solicitante_sign') return;
+      if (field.id === 'nome_solicitante_sign' || field.id === 'cpf_solicitante_sign' || field.id === 'nome_usuario_sign' || field.id === 'cpf_usuario_sign') return;
 
       if (field.type === 'checkbox' || field.type === 'radio') {
         if (!gruposObrigatoriosEtapaInicial.has(field.name) && !idsObrigatoriosEtapaInicial.has(field.id)) return;
@@ -1677,6 +1712,9 @@
         nomeArquivo: nomeArquivoTermo(),
         nomeReferencia: nomeArquivoTermo().replace(/\s*-\s*para-assinatura\.html$/i, ''),
         ehPj: fluxoEhPj(),
+        mvSelecionado: document.getElementById('sis_mv').checked,
+        mvAssinaNao: document.getElementById('mv_assina_nao').checked,
+        temNumeroRegistro: Boolean(document.querySelector('input[name="registro_profissional"]:checked')?.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim()),
         htmlBase64: htmlParaBase64(html)
       };
       const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
@@ -1700,6 +1738,25 @@
       button.disabled = false;
       atualizarTextoFluxo();
     }
+  });
+
+  // ===== Impressão manual em PDF =====
+  document.getElementById('btn-print-manual-pdf').addEventListener('click', async () => {
+    const faltantes = [];
+    limparDestaquesValidacao();
+    const marcarGrupo = (selector, texto) => { faltantes.push(texto); destacarGrupo(selector); };
+    const marcarCampo = (id, texto) => { faltantes.push(texto); destacarCampo(id); };
+    const contrato = document.querySelector('input[name="tipo_contrato"]:checked');
+    const conselho = document.querySelector('input[name="registro_profissional"]:checked');
+    const sistemas = document.querySelector('input[name="sistemas"]:checked');
+    if (!contrato) marcarGrupo('input[name="tipo_contrato"]', 'Tipo de contrato');
+    if (contrato?.value === 'OUTRO' && !document.getElementById('contrato_outro_txt').value.trim()) marcarCampo('contrato_outro_txt', 'Descrição do outro tipo de contrato');
+    if (!conselho) marcarGrupo('input[name="registro_profissional"]', 'Conselho/registro profissional');
+    if (conselho?.value === 'OUTRO' && !document.getElementById('registro_outro_txt').value.trim()) marcarCampo('registro_outro_txt', 'Descrição do outro conselho profissional');
+    if (!sistemas) marcarGrupo('input[name="sistemas"]', 'Sistemas');
+    if (document.getElementById('sis_mv').checked && !document.querySelector('input[name="mv_assina"]:checked')) marcarGrupo('input[name="mv_assina"]', 'Se assina dentro do MV — Sim ou Não');
+    if (faltantes.length) { await showCustomConfirm(faltantes); return; }
+    window.print();
   });
 
   // ===== Geração de PDF =====
@@ -1784,12 +1841,15 @@
       const tipoContratoSelecionado = document.querySelector('input[name="tipo_contrato"]:checked');
       const contratoDefinido = Boolean(tipoContratoSelecionado);
       const contratoEhPj = contratoDefinido && tipoContratoSelecionado.value === 'PJ';
+      const pjDeclarado = contratoEhPj || (!contratoDefinido && document.getElementById('mv_pj_sim').checked);
       const contratoNaoEhPj = contratoDefinido && !contratoEhPj;
       if (document.getElementById('mv_assina_nao').checked && !contratoDefinido && !document.querySelector('input[name="mv_pj"]:checked')) {
         markMissing(document.querySelector('input[name="mv_pj"]'), 'Pessoa jurídica (PJ) — Sim ou Não', true);
       }
-      const mvIndicaNaoPj = !contratoDefinido && document.getElementById('mv_pj_nao').checked;
-      if (document.getElementById('mv_assina_nao').checked && (contratoNaoEhPj || mvIndicaNaoPj)) {
+      const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
+      const possuiNumeroRegistro = Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim());
+      const contatoNecessario = document.getElementById('mv_assina_nao').checked && !pjDeclarado && possuiNumeroRegistro;
+      if (contatoNecessario) {
         if (!document.getElementById('mv_telefone').value.trim()) markMissing(document.getElementById('mv_telefone'), 'Telefone');
         if (!document.getElementById('mv_email').value.trim()) markMissing(document.getElementById('mv_email'), 'E-mail');
       }
@@ -1806,7 +1866,7 @@
 
     if (emptyFields.length > 0) {
       await showCustomConfirm(emptyFields);
-      button.innerText = 'Salvar em PDF';
+      button.innerText = 'Salvar totalmente preenchido e assinado em PDF';
       button.disabled = false;
       return;
     }
@@ -1983,7 +2043,7 @@
       console.error(err);
       alert('Houve um erro na tentativa de criar seu PDF. Por favor, tente novamente.');
     } finally {
-      button.innerText = 'Salvar em PDF';
+      button.innerText = 'Salvar totalmente preenchido e assinado em PDF';
       button.disabled = false;
     }
   });
