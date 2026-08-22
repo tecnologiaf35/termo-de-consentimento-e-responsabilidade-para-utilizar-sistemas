@@ -1079,7 +1079,7 @@
 
   function fluxoEhPj() {
     const tipoContrato = document.querySelector('input[name="tipo_contrato"]:checked');
-    return tipoContrato ? tipoContrato.value === 'PJ' : Boolean(document.getElementById('mv_pj_sim')?.checked);
+    return tipoContrato?.value === 'PJ' || document.getElementById('mv_pj_sim')?.checked;
   }
 
   function atualizarTextoFluxo() {
@@ -1132,9 +1132,8 @@
     }
     const mvIndicaNaoPj = !contratoDefinido && document.getElementById('mv_pj_nao').checked;
     const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
-    const possuiNumeroRegistro = Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim());
-    const contatoNecessario = mvSelected && assinaNao && !pjDeclarado && possuiNumeroRegistro;
     const fluxoNecessario = mvSelected && assinaNao && (contratoNaoEhPj || (!contratoDefinido && mvIndicaNaoPj)) && Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI');
+    const contatoNecessario = fluxoNecessario;
     rowContato.classList.toggle('is-visible', contatoNecessario);
     rowFluxo.classList.toggle('is-visible', fluxoNecessario);
     atualizarTextoFluxo();
@@ -1455,14 +1454,15 @@
       const tipo = document.querySelector('input[name="tipo_contrato"]:checked');
       const contratoDefinido = Boolean(tipo);
       const contratoEhPj = contratoDefinido && tipo.value === 'PJ';
-      const pjDeclarado = contratoEhPj || (!contratoDefinido && document.getElementById('mv_pj_sim').checked);
+      const contratoNaoEhPj = contratoDefinido && !contratoEhPj;
       if (document.getElementById('mv_assina_nao').checked && !contratoDefinido && !document.querySelector('input[name="mv_pj"]:checked')) {
         errors.push('Pessoa jurídica (PJ) — Sim ou Não');
         destacarGrupo('input[name="mv_pj"]');
       }
       const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
-      const possuiNumeroRegistro = Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim());
-      const contatoNecessario = document.getElementById('mv_assina_nao').checked && !pjDeclarado && possuiNumeroRegistro;
+      const contatoNecessario = document.getElementById('mv_assina_nao').checked
+        && (contratoNaoEhPj || (!contratoDefinido && document.getElementById('mv_pj_nao').checked))
+        && Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI');
       if (contatoNecessario) {
         if (!document.getElementById('mv_telefone').value.trim()) {
           errors.push('Telefone');
@@ -1841,14 +1841,14 @@
       const tipoContratoSelecionado = document.querySelector('input[name="tipo_contrato"]:checked');
       const contratoDefinido = Boolean(tipoContratoSelecionado);
       const contratoEhPj = contratoDefinido && tipoContratoSelecionado.value === 'PJ';
-      const pjDeclarado = contratoEhPj || (!contratoDefinido && document.getElementById('mv_pj_sim').checked);
       const contratoNaoEhPj = contratoDefinido && !contratoEhPj;
       if (document.getElementById('mv_assina_nao').checked && !contratoDefinido && !document.querySelector('input[name="mv_pj"]:checked')) {
         markMissing(document.querySelector('input[name="mv_pj"]'), 'Pessoa jurídica (PJ) — Sim ou Não', true);
       }
       const registroSelecionado = document.querySelector('input[name="registro_profissional"]:checked');
-      const possuiNumeroRegistro = Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI' && document.getElementById('num_registro').value.trim());
-      const contatoNecessario = document.getElementById('mv_assina_nao').checked && !pjDeclarado && possuiNumeroRegistro;
+      const contatoNecessario = document.getElementById('mv_assina_nao').checked
+        && (contratoNaoEhPj || (!contratoDefinido && document.getElementById('mv_pj_nao').checked))
+        && Boolean(registroSelecionado && registroSelecionado.value !== 'NAO_POSSUI');
       if (contatoNecessario) {
         if (!document.getElementById('mv_telefone').value.trim()) markMissing(document.getElementById('mv_telefone'), 'Telefone');
         if (!document.getElementById('mv_email').value.trim()) markMissing(document.getElementById('mv_email'), 'E-mail');
